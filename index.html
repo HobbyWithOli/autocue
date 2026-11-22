@@ -203,7 +203,7 @@ function renderList(){
     const b=document.createElement('button');b.className='card';
     const key=s.src+':'+(s.file||s.id);const p=pos[key];
     b.innerHTML=`<h3>${esc(s.title)}</h3><div class="meta">${s.updated?`<span>Updated ${fmtDate(s.updated)}</span>`:''}${s.words?`<span>~${mins(s.words)} min read</span>`:''}${s.src==='local'?'<span>On this phone</span>':''}${p&&p>0.02&&p<0.97?`<span class="res">Resume ${Math.round(p*100)}%</span>`:''}</div>`;
-    b.onclick=()=>open(s);
+    b.onclick=()=>{goFull();open(s)};
     L.appendChild(b);
     if(s.src==='local'){const d=document.createElement('button');d.className='del';d.textContent='Delete “'+s.title+'” from this phone';d.style.margin='-6px 0 14px 4px';d.onclick=()=>{store.set('cue-local',local().filter(x=>x.id!==s.id));renderList()};L.appendChild(d)}
   });
@@ -219,6 +219,7 @@ $('pSave').onclick=()=>{const body=$('pBody').value.trim();if(!body)return toast
 /* ---------- prompter ---------- */
 const sc=$('scroller'),tx=$('text');
 let playing=false,raf=0,last=0,acc=0,wake=null,uiT=0,key='';
+function goFull(){try{const d=document.documentElement;if(!document.fullscreenElement&&d.requestFullscreen)d.requestFullscreen({navigationUI:'hide'}).catch(()=>{})}catch(e){}}
 async function open(s){
   let md=s.md;
   if(!md){
