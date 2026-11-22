@@ -247,8 +247,8 @@ function apply(){
   tx.classList.toggle('mirror',S.mirror);tx.classList.toggle('nonotes',!S.notes);
   $('sVal').textContent=S.wpm;$('fVal').textContent=S.font;
   $('notes').classList.toggle('on',S.notes);$('mirror').classList.toggle('on',S.mirror);$('cdBtn').classList.toggle('on',S.countdown);
-  // guide line sits one-third down; padding lets first/last lines reach it
-  const gh=S.font*1.38*1.15, gy=innerHeight*0.32;
+  // guide line sits just under the top bar, as close to the phone camera as possible
+  const gh=S.font*1.38*1.15, gy=guideY();
   const g=$('guide');g.style.top=(gy-gh/2)+'px';g.style.height=gh+'px';
   tx.style.paddingTop=(gy-S.font*0.7)+'px';tx.style.paddingBottom=(innerHeight*0.7)+'px';
   saveS();update();
@@ -282,9 +282,10 @@ function update(){
   $('time').textContent=fmt((max-sc.scrollTop)/pxPerSec())+' left';
 }
 sc.addEventListener('scroll',()=>{if(!playing)update()},{passive:true});
-function jumpTo(id){const el=document.getElementById(id);if(!el)return;const gy=innerHeight*0.32;sc.scrollTop=el.offsetTop-gy+S.font*0.3;update()}
+function guideY(){const t=document.getElementById('top');const safe=t?Math.max(0,parseFloat(getComputedStyle(t).paddingTop)-8):0;return safe+12+S.font*1.38*0.6}
+function jumpTo(id){const el=document.getElementById(id);if(!el)return;const gy=guideY();sc.scrollTop=el.offsetTop-gy+S.font*0.3;update()}
 function nudgeSection(dir){
-  const hs=[...tx.querySelectorAll('h2')];const gy=sc.scrollTop+innerHeight*0.32;
+  const hs=[...tx.querySelectorAll('h2')];const gy=sc.scrollTop+guideY();
   let tgt=dir>0?hs.find(h=>h.offsetTop>gy+10):[...hs].reverse().find(h=>h.offsetTop<gy-S.font*1.5);
   if(tgt)jumpTo(tgt.id);else if(dir<0)sc.scrollTop=0;
 }
