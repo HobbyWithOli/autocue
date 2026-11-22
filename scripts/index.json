@@ -1,6 +1,18 @@
 {
   "scripts": [
     {
+      "file": "ep2-chequy-knight.md",
+      "title": "Ep 2 — The Chequy Knight",
+      "updated": "2026-11-22",
+      "words": 1086
+    },
+    {
+      "file": "ep3-sir-hugh-jardon.md",
+      "title": "Ep 3 — Sir Hugh Jardon",
+      "updated": "2026-11-22",
+      "words": 717
+    },
+    {
       "file": "ep1-men-at-arms.md",
       "title": "Ep 1 — Men-at-Arms, Tone Pro and the Gaahleri TurboX Mini",
       "updated": "2026-11-13",
